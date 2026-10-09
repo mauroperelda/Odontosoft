@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -k -s -X POST https://localhost:7229/api/Account/Login -H \"Content-Type: application/json\" -d '{\"username\":\"newuser1\",\"password\":\"NEWUSER1234\"}')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const r=JSON.parse\\(d\\);console.log\\('case-sensitivity test \\(mayúsculas\\):',r.result?'OK':'RECHAZADO',r.message\\)}\\)\")",
+      "Bash(curl -k -s -X POST https://localhost:7229/api/Account/Login -H \"Content-Type: application/json\" -d '{\"username\":\"selfreg1\",\"password\":\"newuser1234\"}')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const r=JSON.parse\\(d\\);console.log\\('cross-user hash test \\(pwd de newuser en selfreg\\):',r.result?'ACEPTÓ \\(BUG\\)':'RECHAZADO OK',r.message\\)}\\)\")",
+      "Bash(curl -s -k -X POST \"https://localhost:7229/api/Account/Login\" -H \"Content-Type: application/json\" -d \"{\\\\\"username\\\\\":\\\\\"mauroperelda\\\\\",\\\\\"password\\\\\":\\\\\"Password1!\\\\\"}\")",
+      "Bash(curl -k -s \"https://localhost:7288/swagger/v1/swagger.json\")",
+      "Bash(python -c \"import sys, json; d=json.load\\(sys.stdin\\); print\\('Periodontograma endpoints:'\\); [print\\('  ', k\\) for k in d['paths'] if 'periodontograma' in k.lower\\(\\)]; print\\('ImagenPaciente endpoints:'\\); [print\\('  ', k\\) for k in d['paths'] if 'imagenpaciente' in k.lower\\(\\)]\")",
+      "Bash(curl -k -s -o /dev/null -w \"Sin auth: %{http_code}\\\\n\" \"https://localhost:7288/api/Periodontograma/GetByHistoriaClinica/1\")",
+      "Bash(curl -k -s -o /dev/null -w \"Sin auth: %{http_code}\\\\n\" \"https://localhost:7288/api/ImagenPaciente/GetByHistoriaClinica/1\")",
+      "Bash(curl -k -s -X POST \"https://localhost:7229/api/Account/Login\" -H \"Content-Type: application/json\" -d '{\"username\":\"admin\",\"password\":\"admin\"}')",
+      "Bash(curl -k -s -o /dev/null -w \"%{http_code}\\\\n\" -X POST \"https://localhost:7229/api/Account/Login\" -H \"Content-Type: application/json\" -d '{\"username\":\"admin\",\"password\":\"admin\"}')",
+      "Bash(grep -l \"grid-cols-16\" src/ -r)",
+      "Bash(grep -l \"ODONTO_ROW\\\\|PERIODONTO_QUADRANTS\" src/ -r)",
+      "Bash(curl -s \"http://localhost:5173\" -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5173\")",
+      "Bash(curl -s \"http://localhost:5173/src/components/ficha/OdontogramaChart.jsx\")",
+      "Bash(grep -iE \"^\\(x|close|cross\\)\\\\.mjs$\")",
+      "Bash(npm run *)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(curl -s -o /dev/null -w \"Status: %{http_code}\\\\n\" \"http://localhost:5175/src/utils/dental.js\")",
+      "Bash(curl -s \"http://localhost:5175/src/utils/dental.js\")",
+      "Bash(npx eslint *)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Skill(browser-automation)",
+      "Skill(browser-automation:*)",
+      "Bash(node browser.mjs http://localhost:5173/ --script \"C:/Users/Mauro/AppData/Local/Temp/qa-darkmode.mjs\")",
+      "Bash(node browser.mjs --session darktest --script \"C:/Users/Mauro/AppData/Local/Temp/qa-app-dark.mjs\")",
+      "Bash(node browser.mjs http://localhost:5173/login --script \"C:/Users/Mauro/AppData/Local/Temp/qa-app-dark.mjs\")",
+      "Bash(node browser.mjs http://localhost:5173/login --eval \"[...document.querySelectorAll\\('button[title]'\\)].map\\(b => b.title\\).filter\\(Boolean\\)\")",
+      "Bash(curl -s http://localhost:5173/src/services/api.jsx)",
+      "Bash(powershell -NoProfile -Command \"Get-WebGlobalModule -Name 'ApplicationRequestRouting' -ErrorAction SilentlyContinue; Get-WebConfigurationProperty -Filter '/system.webServer/proxy' -Name 'enabled' -ErrorAction SilentlyContinue\")",
+      "Bash(ls \"C:/Windows/System32/inetsrv/\" 2>/dev/null | grep -i -E \"arr|proxy|rewrite|requestrout\")",
+      "Read(//c/Windows/System32/inetsrv/**)",
+      "Bash(ls \"C:/Windows/System32/inetsrv/config/\" 2>/dev/null | head -30)",
+      "Read(//c/Windows/System32/inetsrv/config/**)"
+    ],
+    "additionalDirectories": [
+      "D:\\Softwares\\Odontosoft\\OdontoSoft.Data\\Repository"
+    ]
+  }
+}

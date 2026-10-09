@@ -1,0 +1,668 @@
+@import "tailwindcss";
+
+/* ── Global reset & base ─────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f0f2f5;
+  color: #1e293b;
+}
+
+/* ── App Layout ─────────────────────────────────────── */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.content {
+  padding: 16px;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 24px;
+  }
+}
+
+/* ── Tablas responsive ─────────────────────────────────── */
+/* Wrapper para tablas. En mobile hace scroll horizontal en vez
+   de cortar el contenido. Combinado con `min-w-[600px]` en la
+   <table> fuerza el scroll cuando las columnas no entran. */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Dental charts (odontograma / periodontograma) ──────── */
+/* En mobile los SVGs de los dientes son demasiado grandes para
+   la pantalla. Escalamos por CSS (mantiene proporciones vía
+   viewBox) sin tocar los componentes. */
+@media (max-width: 767px) {
+  .dental-chart-mobile .tooth-cell svg {
+    height: 34px !important;
+    width: auto !important;
+  }
+  .dental-chart-mobile .tooth-cell span {
+    font-size: 9px;
+  }
+}
+
+/* ── Dark mode ─────────────────────────────────────────── */
+/* Aplicado por ThemeContext vía `data-theme="dark"` en <html>.
+   Las utilidades de Tailwind v4 son specificity (0,1,0); estos
+   selectores son (0,2,0) → ganan sin necesidad de !important.
+   Si agregás una clase nueva al app y no se ve en dark, agregá
+   un override acá. */
+
+[data-theme="dark"] body {
+  background: #16171d;
+  color: #e5e7eb;
+}
+
+/* Topbar (blanca → slate oscuro) */
+[data-theme="dark"] .topbar {
+  background: #1f2028;
+  border-bottom-color: #2e303a;
+}
+
+/* Cards / superficies blancas */
+[data-theme="dark"] .bg-white {
+  background-color: #1f2028;
+}
+
+/* Backgrounds sutiles (table headers, footers, etc.) */
+[data-theme="dark"] .bg-slate-50,
+[data-theme="dark"] .bg-slate-100,
+[data-theme="dark"] .bg-gray-50 {
+  background-color: #16171d;
+}
+
+[data-theme="dark"] .bg-slate-200 {
+  background-color: #2e303a;
+}
+
+/* Texto */
+[data-theme="dark"] .text-slate-900,
+[data-theme="dark"] .text-slate-800 {
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .text-slate-700,
+[data-theme="dark"] .text-gray-700 {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .text-slate-600,
+[data-theme="dark"] .text-gray-600 {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .text-slate-500,
+[data-theme="dark"] .text-gray-500,
+[data-theme="dark"] .text-slate-400,
+[data-theme="dark"] .text-gray-400 {
+  color: #94a3b8;
+}
+
+/* Bordes */
+[data-theme="dark"] .border-slate-200,
+[data-theme="dark"] .border-slate-100,
+[data-theme="dark"] .border-gray-100,
+[data-theme="dark"] .border-gray-200 {
+  border-color: #2e303a;
+}
+
+[data-theme="dark"] .border-gray-300 {
+  border-color: #3f4250;
+}
+
+[data-theme="dark"] .border-slate-300 {
+  border-color: #3f4250;
+}
+
+/* Hover */
+[data-theme="dark"] .hover\:bg-slate-50:hover,
+[data-theme="dark"] .hover\:bg-slate-100:hover,
+[data-theme="dark"] .hover\:bg-gray-100:hover {
+  background-color: #2e303a;
+}
+
+[data-theme="dark"] .hover\:text-slate-700:hover,
+[data-theme="dark"] .hover\:text-gray-700:hover {
+  color: #f3f4f6;
+}
+
+/* Tablas — header y filas */
+[data-theme="dark"] thead.bg-slate-50,
+[data-theme="dark"] thead.bg-gray-50 {
+  background-color: #16171d;
+}
+
+[data-theme="dark"] tbody tr:hover {
+  background-color: #2e303a;
+}
+
+/* Badges/chips admin (mantienen tono pero con fondo oscuro) */
+[data-theme="dark"] .bg-violet-50 { background-color: #2e1f5b; }
+[data-theme="dark"] .text-violet-700 { color: #c4b5fd; }
+[data-theme="dark"] .border-violet-200 { border-color: #4c2e91; }
+[data-theme="dark"] .hover\:bg-violet-50:hover { background-color: #2e1f5b; }
+
+[data-theme="dark"] .bg-emerald-50 { background-color: #064e3b; }
+[data-theme="dark"] .text-emerald-700 { color: #6ee7b7; }
+
+[data-theme="dark"] .bg-amber-50 { background-color: #78350f; }
+[data-theme="dark"] .text-amber-700 { color: #fcd34d; }
+
+[data-theme="dark"] .bg-rose-50 { background-color: #881337; }
+[data-theme="dark"] .text-rose-700 { color: #fda4af; }
+
+[data-theme="dark"] .bg-orange-50 { background-color: #7c2d12; }
+[data-theme="dark"] .text-orange-700 { color: #fdba74; }
+
+[data-theme="dark"] .bg-sky-50 { background-color: #0c4a6e; }
+[data-theme="dark"] .text-sky-700 { color: #7dd3fc; }
+
+[data-theme="dark"] .bg-red-50 { background-color: #7f1d1d; }
+[data-theme="dark"] .text-red-600 { color: #fca5a5; }
+[data-theme="dark"] .border-red-200 { border-color: #7f1d1d; }
+[data-theme="dark"] .hover\:bg-red-50:hover { background-color: #7f1d1d; }
+
+/* Botones outline slate (Editar, etc.) */
+[data-theme="dark"] .border-slate-200 { border-color: #2e303a; }
+[data-theme="dark"] .bg-slate-100 { background-color: #2e303a; }
+[data-theme="dark"] .text-slate-600 { color: #cbd5e1; }
+
+/* Inputs (search, login, formularios) */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: #16171d;
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: #64748b;
+}
+
+[data-theme="dark"] input.border-slate-200,
+[data-theme="dark"] textarea.border-slate-200,
+[data-theme="dark"] select.border-slate-200 {
+  border-color: #2e303a;
+}
+
+[data-theme="dark"] input.bg-slate-50 {
+  background-color: #16171d;
+}
+
+/* Login */
+[data-theme="dark"] .login-page {
+  background: #16171d;
+}
+
+[data-theme="dark"] .login-form {
+  background: #1f2028;
+}
+
+[data-theme="dark"] .login-form-title {
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .login-form-subtitle {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .login-field label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .login-input {
+  background: #16171d;
+  border-color: #2e303a;
+}
+
+[data-theme="dark"] .login-input input {
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .login-input input::placeholder {
+  color: #64748b;
+}
+
+[data-theme="dark"] .login-error {
+  background: #3f1d1d;
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .login-link {
+  color: #a5b4fc;
+}
+
+/* Modal SweetAlert2 — la API acepta `customClass`; acá dejamos fallback
+   para cualquier modal nativo que use el fondo por defecto del navegador. */
+[data-theme="dark"] .bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dental charts — las coronas son blancas por default; en dark mode
+   conviene aclararles el contorno para que no se "pierdan" en el fondo. */
+[data-theme="dark"] .dental-chart-mobile svg path[stroke="#cbd5e1"] {
+  stroke: #475569;
+}
+
+
+/* ── Sidebar ─────────────────────────────────────────── */
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: #313a46;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.25s ease;
+}
+
+/* Scrollbar delgado en el sidebar */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+
+/* Título de sección */
+.menu-section {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  text-transform: uppercase;
+  padding: 18px 20px 6px;
+}
+
+/* Item de menú */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #9ca3af;
+  text-decoration: none;
+  padding: 9px 20px;
+  font-size: 13.5px;
+  font-weight: 400;
+  transition: background 0.15s, color 0.15s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.menu-item:hover {
+  color: #e2e8f0;
+  background: rgba(255,255,255,0.05);
+}
+
+.menu-item.active {
+  color: #ffffff;
+  background: rgba(255,255,255,0.08);
+}
+
+.menu-item svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.menu-item.active svg {
+  opacity: 1;
+}
+
+/* ── Topbar ──────────────────────────────────────────── */
+.topbar {
+  height: 56px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* ── Page header (título de sección dentro del content) ── */
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* ── Login ──────────────────────────────────────────── */
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f0f2f5;
+}
+
+.login-brand {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-brand::before {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  top: -120px;
+  right: -120px;
+}
+
+.login-brand::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  bottom: -80px;
+  left: -80px;
+}
+
+.login-brand-inner {
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+}
+
+.login-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+}
+
+.login-brand-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.login-brand-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 32px 0;
+}
+
+.login-brand-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-brand-list li {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.92);
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+
+.login-form-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.login-form--wide {
+  max-width: 640px;
+  padding: 36px 40px;
+}
+
+.login-form-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+}
+
+.login-form-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0 0 28px 0;
+}
+
+.login-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.login-field-error {
+  display: block;
+  color: #b91c1c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.login-input.has-error {
+  border-color: #fca5a5;
+}
+
+.login-input.has-error:focus-within {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.login-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+
+@media (max-width: 560px) {
+  .login-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.login-grid-2 .login-field {
+  margin-bottom: 14px;
+}
+
+.login-terms {
+  align-items: flex-start;
+  margin: 4px 0 18px 0;
+  line-height: 1.45;
+}
+
+.login-terms input {
+  margin-top: 2px;
+}
+
+.login-field {
+  margin-bottom: 16px;
+}
+
+.login-field label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.login-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 44px;
+  background: #ffffff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.login-input:focus-within {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.login-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #1e293b;
+  background: transparent;
+  height: 100%;
+}
+
+.login-input input::placeholder {
+  color: #cbd5e1;
+}
+
+.login-eye {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.login-eye:hover {
+  color: #475569;
+}
+
+.login-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 6px 0 22px 0;
+  font-size: 12.5px;
+}
+
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+  cursor: pointer;
+}
+
+.login-remember input {
+  accent-color: #6366f1;
+  cursor: pointer;
+}
+
+.login-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.login-submit {
+  width: 100%;
+  height: 44px;
+  background: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+
+.login-submit:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.login-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 13px;
+  color: #64748b;
+  margin: 22px 0 0 0;
+}
+
+@media (max-width: 880px) {
+  .login-page {
+    grid-template-columns: 1fr;
+  }
+  .login-brand {
+    display: none;
+  }
+}
