@@ -4,7 +4,7 @@
 
 > **Repos relacionados**
 >
-> - **Backend (este sistema consume):** [`odontosoft-back`](https://github.com/mauroperelda/odontosoft-back) — solución .NET con `OdontoSoft.API` (REST).
+> - **Backend (este sistema consume):** [`odontosoft-back`](https://github.com/mauroperelda/odontosoftback) — solución .NET con `OdontoSoft.API` (REST).
 > - **API de identidad:** [`ApiGetToken`](https://github.com/mauroperelda/ApiGetToken) — emite y valida los tokens JWT con BCrypt + RBAC; comparte `Jwt:Key`/`Issuer`/`Audience` con `OdontoSoft.API`.
 
 ---
