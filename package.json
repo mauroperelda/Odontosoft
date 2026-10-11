@@ -10,7 +10,6 @@
     "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1",
     "build:remote:deploy": "npm run build:remote && npm run deploy",
     "build:deploy": "npm run build && npm run deploy",
-    "tunnel": "powershell -ExecutionPolicy Bypass -File scripts/start-tunnels.ps1",
     "lint": "eslint .",
     "preview": "vite preview"
   },
