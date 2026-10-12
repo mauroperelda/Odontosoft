@@ -9,6 +9,7 @@ lerna-debug.log*
 
 dist
 node_modules
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .env
 dist-ssr
 *.local
